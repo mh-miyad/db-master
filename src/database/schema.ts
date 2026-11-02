@@ -2,29 +2,30 @@ import {
   boolean,
   integer,
   pgTable,
-  text,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
 
-export const users = pgTable('user', {
+export const users = pgTable('users', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-
   name: varchar('name', { length: 100 }).notNull(),
-
-  slug: varchar('slug', { length: 120 }).notNull().unique(),
-
-  description: text('description'),
-
+  email: varchar('email', { length: 255 }).notNull().unique(),
+  phone: varchar('phone', { length: 20 }).unique(),
+  passwordHash: varchar('password_hash', {
+    length: 255,
+  }).notNull(),
   isActive: boolean('is_active').notNull().default(true),
-
   createdAt: timestamp('created_at', {
+    withTimezone: true,
+  })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp('updated_at', {
     withTimezone: true,
   })
     .notNull()
     .defaultNow(),
 });
 
-export type Users = typeof users.$inferSelect;
-
-export type NewUsers = typeof users.$inferInsert;
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
