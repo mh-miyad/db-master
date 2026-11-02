@@ -4,6 +4,8 @@ import { DrizzleModule } from '@nestjs/drizzle';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { AuthModule } from './module/auth/auth.module.js';
+import { UsersModule } from './module/users/users.module.js';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { AppService } from './app.service.js';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
