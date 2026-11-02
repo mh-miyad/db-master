@@ -7,7 +7,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 
-export const categories = pgTable('categories', {
+export const users = pgTable('user', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
 
   name: varchar('name', { length: 100 }).notNull(),
@@ -25,6 +25,6 @@ export const categories = pgTable('categories', {
     .defaultNow(),
 });
 
-export type Category = typeof categories.$inferSelect;
+export type Users = typeof users.$inferSelect;
 
-export type NewCategory = typeof categories.$inferInsert;
+export type NewUsers = typeof users.$inferInsert;
